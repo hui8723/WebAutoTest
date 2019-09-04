@@ -1,10 +1,12 @@
-import time
+from ddt import ddt, data, unpack
 
 from testcase.base_case import BaseCase
 from page.login_page import LoginPage
 from tools import screen_utils
 
-
+# ddt运行只能在类中运行，不能当个方法运行，
+# 单个方法运行报错 AttributeError: type object 'LoginTestCase' has no attribute 'test_login08'
+@ddt
 class LoginTestCase(BaseCase):
 
     def test_login01_empty(self):
@@ -61,3 +63,16 @@ class LoginTestCase(BaseCase):
         if not "xxx".__eq__(self.po.get_nickname()):
             screen_utils.screenshot(self.driver, "test_login06_normal.png")
         self.assertEqual("xxxx", self.po.get_nickname())
+
+    @data(["186xxxxxxxx", "aaaa"], ["186xxxxxxxx@163.com", "aaaa"])
+    @unpack
+    def test_login07_ddt(self, username, pwd):
+        """ddt"""
+        self.po = LoginPage(self.driver)
+        self.driver.implicitly_wait(5)
+        self.po.login_action(username, pwd)
+        self.assertEqual("xxxx", self.po.get_nickname())
+
+    @data([1, 2, 3])
+    def test_login08(self, value):
+        print(value)
