@@ -12,7 +12,6 @@ class BaseCase(unittest.TestCase):
     def _initial(self):
         self.driver = browser()
 
-
     def tearDown(self):
         print("测试用例执行完毕！")
         # self._clean()

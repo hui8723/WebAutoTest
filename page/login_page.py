@@ -1,13 +1,11 @@
 import time
 
-from testcase.base_case import BaseCase
-from tools.driver import browser
 
-
-class LoginPage():
+class LoginPage(object):
 
     def __init__(self, driver):
         self.driver = driver
+        self.url = "https://www.zhihu.com/signin?next=%2F"
         # self.url = "http://localhost/login/"
         self.open_pwd()
         self.username = self.driver.find_element_by_name('username')
